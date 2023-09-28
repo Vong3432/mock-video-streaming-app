@@ -50,7 +50,7 @@ extension Author {
             id: "a-001",
             username: "xthilox",
             avatar: "https://yt3.ggpht.com/ytc/AOPolaRhv_gd-rvFI0YX8EW8Wr4fUyZ-J0ZUnRkDzzK8KA=s88-c-k-c0x00ffffff-no-rj",
-            tagline: nil
+            tagline: "Racing"
         )
     ]
 }
