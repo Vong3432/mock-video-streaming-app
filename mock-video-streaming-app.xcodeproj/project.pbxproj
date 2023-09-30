@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3B8F65FA2AC5D73B00F45CF7 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8F65F92AC5D73B00F45CF7 /* Error.swift */; };
-		3B8F65FC2AC5D8F200F45CF7 /* UIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8F65FB2AC5D8F200F45CF7 /* UIImage+Utils.swift */; };
+		3B8F65FC2AC5D8F200F45CF7 /* UIImageView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8F65FB2AC5D8F200F45CF7 /* UIImageView+Utils.swift */; };
 		3B9175BB2ABCA13900D13B14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9175BA2ABCA13900D13B14 /* AppDelegate.swift */; };
 		3B9175BD2ABCA13900D13B14 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9175BC2ABCA13900D13B14 /* SceneDelegate.swift */; };
 		3B9175BF2ABCA13900D13B14 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9175BE2ABCA13900D13B14 /* RootViewController.swift */; };
@@ -23,11 +23,13 @@
 		3B9175E42ABCAE3300D13B14 /* Short.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9175E32ABCAE3300D13B14 /* Short.swift */; };
 		3B9175E62ABCBB0300D13B14 /* ShortsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9175E52ABCBB0300D13B14 /* ShortsTableViewCell.swift */; };
 		3B9175E82ABCC15200D13B14 /* ShortsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9175E72ABCC15200D13B14 /* ShortsTableView.swift */; };
+		3BD706F62AC85B17009E21C6 /* UIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD706F52AC85B17009E21C6 /* UIImage+Utils.swift */; };
+		3BD706F82AC85CC9009E21C6 /* ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD706F72AC85CC9009E21C6 /* ScreenSize.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3B8F65F92AC5D73B00F45CF7 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
-		3B8F65FB2AC5D8F200F45CF7 /* UIImage+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Utils.swift"; sourceTree = "<group>"; };
+		3B8F65FB2AC5D8F200F45CF7 /* UIImageView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Utils.swift"; sourceTree = "<group>"; };
 		3B9175B72ABCA13900D13B14 /* mock-video-streaming-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mock-video-streaming-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B9175BA2ABCA13900D13B14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B9175BC2ABCA13900D13B14 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -44,6 +46,9 @@
 		3B9175E32ABCAE3300D13B14 /* Short.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Short.swift; sourceTree = "<group>"; };
 		3B9175E52ABCBB0300D13B14 /* ShortsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortsTableViewCell.swift; sourceTree = "<group>"; };
 		3B9175E72ABCC15200D13B14 /* ShortsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortsTableView.swift; sourceTree = "<group>"; };
+		3BD706F52AC85B17009E21C6 /* UIImage+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Utils.swift"; sourceTree = "<group>"; };
+		3BD706F72AC85CC9009E21C6 /* ScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSize.swift; sourceTree = "<group>"; };
+		3BD706FA2AC86D25009E21C6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +67,7 @@
 			children = (
 				3B9175B92ABCA13900D13B14 /* mock-video-streaming-app */,
 				3B9175B82ABCA13900D13B14 /* Products */,
+				3BD706F92AC86D24009E21C6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,7 +110,9 @@
 			children = (
 				3B9175D62ABCA78800D13B14 /* UIViewController+Utils.swift */,
 				3B8F65F92AC5D73B00F45CF7 /* Error.swift */,
-				3B8F65FB2AC5D8F200F45CF7 /* UIImage+Utils.swift */,
+				3B8F65FB2AC5D8F200F45CF7 /* UIImageView+Utils.swift */,
+				3BD706F52AC85B17009E21C6 /* UIImage+Utils.swift */,
+				3BD706F72AC85CC9009E21C6 /* ScreenSize.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -151,6 +159,14 @@
 				3B9175E52ABCBB0300D13B14 /* ShortsTableViewCell.swift */,
 			);
 			path = ShortsTable;
+			sourceTree = "<group>";
+		};
+		3BD706F92AC86D24009E21C6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3BD706FA2AC86D25009E21C6 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,10 +247,12 @@
 				3B9175BF2ABCA13900D13B14 /* RootViewController.swift in Sources */,
 				3B9175D72ABCA78800D13B14 /* UIViewController+Utils.swift in Sources */,
 				3B9175BB2ABCA13900D13B14 /* AppDelegate.swift in Sources */,
+				3BD706F62AC85B17009E21C6 /* UIImage+Utils.swift in Sources */,
+				3BD706F82AC85CC9009E21C6 /* ScreenSize.swift in Sources */,
 				3B9175D22ABCA3D500D13B14 /* ProfileViewController.swift in Sources */,
 				3B9175DA2ABCA7ED00D13B14 /* Route.swift in Sources */,
 				3B9175BD2ABCA13900D13B14 /* SceneDelegate.swift in Sources */,
-				3B8F65FC2AC5D8F200F45CF7 /* UIImage+Utils.swift in Sources */,
+				3B8F65FC2AC5D8F200F45CF7 /* UIImageView+Utils.swift in Sources */,
 				3B9175E82ABCC15200D13B14 /* ShortsTableView.swift in Sources */,
 				3B9175D02ABCA3C400D13B14 /* ShortsViewController.swift in Sources */,
 			);

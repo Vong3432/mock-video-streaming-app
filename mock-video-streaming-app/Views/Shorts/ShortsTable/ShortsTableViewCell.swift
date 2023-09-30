@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ShortsTableViewCell: UITableViewCell {
     
@@ -17,7 +18,7 @@ class ShortsTableViewCell: UITableViewCell {
     
     private var containerStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.axis = .horizontal
+        stackView.axis = .vertical
         stackView.alignment = .top
         return stackView
     }()
@@ -51,8 +52,14 @@ class ShortsTableViewCell: UITableViewCell {
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-    
     private var authorImageTask: Task<Void, Error>?
+    
+    private var videoThumbnailImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "photo")
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -68,6 +75,7 @@ class ShortsTableViewCell: UITableViewCell {
     }
     
     private func setupLayout() {
+        videoThumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         
         // Author
@@ -78,6 +86,7 @@ class ShortsTableViewCell: UITableViewCell {
         authorContainerStackView.addArrangedSubview(authorInfoStackView)
         
         containerStackView.addArrangedSubview(authorContainerStackView)
+        containerStackView.addArrangedSubview(videoThumbnailImageView)
         contentView.addSubview(containerStackView)
         
         // Constraints
@@ -85,16 +94,39 @@ class ShortsTableViewCell: UITableViewCell {
             authorAvatarImageView.widthAnchor.constraint(equalToConstant: 47),
             authorAvatarImageView.heightAnchor.constraint(equalToConstant: 47),
             authorContainerStackView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            videoThumbnailImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            videoThumbnailImageView.topAnchor.constraint(equalTo: authorContainerStackView.bottomAnchor),
+            contentView.bottomAnchor.constraint(equalToSystemSpacingBelow: videoThumbnailImageView.bottomAnchor, multiplier: 1),
             containerStackView.topAnchor.constraint(equalToSystemSpacingBelow: contentView.topAnchor, multiplier: 1),
             contentView.bottomAnchor.constraint(equalToSystemSpacingBelow: containerStackView.bottomAnchor, multiplier: 1),
         ])
         authorContainerStackView.heightAnchor.constraint(lessThanOrEqualToConstant: 52).isActive = true
-        containerStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 150).isActive = true
+        containerStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: UIScreen.currentSize.height * 0.6).isActive = true
         
     }
     
     func configure(with vm: ViewModel) {
         configureAuthorInfo(with: vm.short.author)
+        configureVideo(with: URL(string: vm.short.videoUrl)!)
+    }
+    
+    /** https://stackoverflow.com/a/40551073 **/
+    private func getThumbnail(videoUrl url: URL) async -> UIImage? {
+        let player = AVPlayer(url: url)
+        guard let asset = player.currentItem?.asset else {
+            return nil
+        }
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        imageGenerator.appliesPreferredTrackTransform = true
+        imageGenerator.requestedTimeToleranceBefore = .zero
+        imageGenerator.requestedTimeToleranceAfter = CMTime(seconds: 3, preferredTimescale: 600)
+        do {
+            let image = try await imageGenerator.image(at: player.currentTime()).image
+            return UIImage(cgImage: image)
+        } catch {
+            debugPrint(String(describing: error))
+            return nil
+        }
     }
     
     private func configureAuthorInfo(with author: Author) {
@@ -107,8 +139,19 @@ class ShortsTableViewCell: UITableViewCell {
             guard let result,
                   let image = UIImage(data: result.0)
             else { return }
-            // TODO: Downsampling image before add into view
-            authorAvatarImageView.image = image
+            authorAvatarImageView.image = image.resize(newSize: authorAvatarImageView.frame.size)
+        }
+    }
+    
+    private func configureVideo(with videoUrl: URL) {
+        Task(priority: .background) {
+            let thumbnail = await getThumbnail(videoUrl: videoUrl)
+            guard let thumbnail else { return }
+            await MainActor.run {
+                videoThumbnailImageView.image = thumbnail.resize(
+                    newSize: videoThumbnailImageView.bounds.size
+                )
+            }
         }
     }
 }
