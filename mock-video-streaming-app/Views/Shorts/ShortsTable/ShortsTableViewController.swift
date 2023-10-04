@@ -64,7 +64,10 @@ class ShortsTableViewController: UITableViewController {
     }
     
     private func fetchData(completion: @escaping ShortsTableLoadDataCompletion) {
-        delegate?.shortsTable(self, isFetching: true)
+        let shouldNotifyDelegate = tableView.refreshControl?.isRefreshing == false
+        if shouldNotifyDelegate {
+            delegate?.shortsTable(self, isFetching: true)
+        }
         // mock
         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1) {
             DispatchQueue.main.async {
@@ -84,6 +87,33 @@ class ShortsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    /**
+     https://stackoverflow.com/a/29793097
+     **/
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        for visibleCell in tableView.visibleCells {
+            guard let indexPath = tableView.indexPath(for: visibleCell), let shortTableCell = visibleCell as? ShortsTableViewCell else { return }
+            let cellRect = tableView.rectForRow(at: indexPath)
+            if let superview = tableView.superview {
+                let convertedRect = tableView.convert(cellRect, to: superview)
+                let intersect = CGRectIntersection(tableView.frame, convertedRect)
+                let visibleHeight = CGRectGetHeight(intersect)
+                let cellHeight = CGRectGetHeight(cellRect)
+                let ratio = visibleHeight / cellHeight
+                if ratio > 0.75 {
+                    shortTableCell.playVideo()
+                } else {
+                    shortTableCell.stopVideo()
+                }
+            }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let shortTableCell = cell as? ShortsTableViewCell else { return }
+        shortTableCell.stopVideo()
     }
 }
 
